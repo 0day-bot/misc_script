@@ -14,7 +14,7 @@ if [[ ${#} -eq 0 ]]; then
   usage
 fi
 
-optstring=":abcd"
+optstring="m::abcd"
 
 while getopts ${optstring} arg; do
   case "${arg}" in
@@ -22,6 +22,7 @@ while getopts ${optstring} arg; do
     b) echo "Option b was called" ;;
     c) echo "Option c was called" ;;
     d) echo "Option d was called" ;;
+    m) echo "Option m is $OPTARG" ;;
 
     ?)
       echo "Invalid option: -${OPTARG}"

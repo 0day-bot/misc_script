@@ -29,15 +29,15 @@ hosts(){
 
 usage(){
   echo
-  echo "Usage: ./htb.sh -I 10.10.10.10 -N Victim"
+  echo "Usage: $(basename $0) -I 10.10.10.10 -N Victim [-h]" 2>&1
   echo "    -h  optional to set victim.htb in /etc/hosts"
   echo
   exit 1
 }
 
+optstring="I:N::h"
 
-
-while getopts I:N::h options; do
+while getopts ${optstring} options; do
   case "${options}" in
     U) usage ;;
     I) IP=$OPTARG ;;
