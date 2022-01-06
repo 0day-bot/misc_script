@@ -12,10 +12,10 @@ nmap -T4 --max-retries 1 --max-scan-delay 20 --open -oN $HTBDIR/$NAME/nmap/fast_
 #  nmap -sC -sV $IP -oN $HTBDIR/$NAME/nmap
 #}
 
-#nmap_full()
-#{
-
-#}
+nmap_full()
+{
+nmap -sCV -p- --open -oN $HTBDIR/$NAME/nmap/full_script_$NAME.nmap $IP
+}
 
 hosts(){
   if [ "$EUID" -ne 0 ]; then
@@ -57,3 +57,4 @@ if [ ! -d "$HTBDIR/$NAME/nmap" ]; then
 fi
 
 nmap_fast
+nmap_full
