@@ -17,6 +17,16 @@ nmap -T4 --max-retries 1 --max-scan-delay 20 --open -oN $HTBDIR/$NAME/nmap/fast_
 
 #}
 
+hosts(){
+  if [ "$EUID" -ne 0 ]; then
+    echo "-h options must be run with root to edit /etc/hosts"
+    exit 1
+  fi
+
+  LOWER=$(echo $NAME | tr '[:upper:]' '[:lower:]')
+  sudo echo "$IP $LOWER.htb" >> /etc/hosts
+}
+
 usage(){
   echo
   echo "Usage: ./htb.sh -I 10.10.10.10 -N Victim"
@@ -25,12 +35,14 @@ usage(){
   exit 1
 }
 
-while getopts I:N:h: options; do
+
+
+while getopts I:N::h options; do
   case "${options}" in
     U) usage ;;
     I) IP=$OPTARG ;;
     N) NAME=$OPTARG ;;
-    h) hosts="True" ;;
+    h) hosts ;;
     ?)
       usage ;;
   esac
